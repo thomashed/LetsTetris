@@ -55,14 +55,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let current = theTetrominoes[provideRandom(0,theTetrominoes.length)][provideRandom(0,theTetrominoes[0].length)];
 
-    // draw first rotation of first tetromino 
+    // draw random rotation of random tetromino 
     function draw() {
         current.forEach((index) => {
             squares[currentPosition + index].classList.add('tetromino');
         });
     }
 
+    // undraw tetromino 
+    function unDraw() {
+        for (let i = 0; i < current.length; i++) {
+            squares[currentPosition + current[i]].classList.remove('tetromino');
+        }
+    } 
+
     draw();
+    // unDraw();
 
     function provideRandom(lowerRange, upperRange) {
         return Math.floor(Math.random() * upperRange); 
