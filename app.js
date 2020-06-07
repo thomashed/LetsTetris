@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     let currentPosition = 0;
 
-    let current = theTetrominoes[provideRandom(0,5)][provideRandom(0,4)];
+    let current = theTetrominoes[provideRandom(0,theTetrominoes.length)][provideRandom(0,theTetrominoes[0].length)];
 
     // draw first rotation of first tetromino 
     function draw() {
