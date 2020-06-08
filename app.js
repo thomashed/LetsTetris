@@ -59,6 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // draw random rotation of random tetromino 
     function draw() {
         current.forEach((index) => {
+            console.log('draw on: ' + (currentPosition + index));
             squares[currentPosition + index].classList.add('tetromino');
         });
     }
@@ -74,11 +75,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // our render/update loop so far
     function moveDown(){
-        while (isAtBottom) {
+        if (isAtBottom) {
             unDraw();
             currentPosition += GRID_WIDTH;
             draw();
-            freeze();   
+            freeze();          
         }
     }
 
@@ -87,11 +88,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function freeze(params) {
         // check that condition is true, for SOME of the array items
         if (current.some(index => squares[currentPosition + index + GRID_WIDTH].classList.contains('taken'))) {
-            console.log('---------------> TAKEN')
             isAtBottom = false;
+            // console.log('next/taken: ' + (currentPosition + index + GRID_WIDTH));
         }
-
-
     }
 
     function provideRandom(lowerRange, upperRange) {
