@@ -10,7 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const GRID_WIDTH = 10;
     const scoreDisplay = document.querySelector('score');
     const startButton = document.querySelector('start-button');    
-   
+    let isAtBottom = true;   
+
     // the tetrominos
     // each tetromino is an array, containing four arrays representing the four possible rotations
      //The Tetrominoes
@@ -69,15 +70,35 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     } 
 
-    draw();
-    // unDraw();
+    let timerId = setInterval(moveDown, 100);
+
+    // our render/update loop so far
+    function moveDown(){
+        while (isAtBottom) {
+            unDraw();
+            currentPosition += GRID_WIDTH;
+            draw();
+            freeze();   
+        }
+    }
+
+    moveDown();
+
+    function freeze(params) {
+        // check that condition is true, for SOME of the array items
+        if (current.some(index => squares[currentPosition + index + GRID_WIDTH].classList.contains('taken'))) {
+            console.log('---------------> TAKEN')
+            isAtBottom = false;
+        }
+
+
+    }
 
     function provideRandom(lowerRange, upperRange) {
         return Math.floor(Math.random() * upperRange); 
     }
 
 });
-
 
 // var: fucntion scope, potentially global scope
 // let: is block scoped, e.g. defined inside a for lop
